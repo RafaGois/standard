@@ -6,31 +6,56 @@ document.addEventListener('DOMContentLoaded', function() {
         visibility: "hidden",
     });
 
-    const tl = gsap.timeline();
-          tl.to(mobileMenu, {
+    const tl = gsap.timeline({
+        paused: true,
+    });
+          tl.fromTo(mobileMenu, {
             xPercent: -100,
             duration: 1,
             ease: "power2.inOut",
+          }, {
+            visibility: "visible",
+            xPercent: 0,
           });
-          tl.to(mobileMenu, 
-            {
-            visibility: "hidden",
-            duration: 1,
+
+          tl.to(document.querySelector('#mobile-menu-btn'), {
+            opacity: 0,
+            rotate: 360,
             ease: "power2.inOut",
-            y: -40,
-          }); 
+          }, "<");
+
+          tl.to(mobileMenu.querySelector('.mobile-menu-close-btn'), {
+            opacity: 1,
+            rotate: 360,
+            ease: "power2.inOut",
+          }, "<");
+
+          tl.from(mobileMenu.querySelector('.mobile-menu-title'), {
+            opacity: 0,
+            xPercent: -100,
+            ease: "power2.inOut",
+          }, "+=0.1");
+
+          tl.from(mobileMenu.querySelectorAll('.mobile-menu-link'), {
+            opacity: 0,
+            xPercent: -100,
+            stagger: 0.1,
+            ease: "power2.inOut",
+          }, "<");
 
     mobileMenuBtn.addEventListener('click', function() {
-        tl.reverse();
+        tl.play();
     });
 
     const mobileMenuCloseBtn = document.querySelector('.mobile-menu-close-btn');
     mobileMenuCloseBtn.addEventListener('click', function() {
-        //mobileMenu.classList.add('hidden');
-        /* gsap.set("#mobile-menu", {
-            clearProps: "visibility",
-          }); */
+          tl.reverse();
+    });
 
-          tl.play();
+    const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+    mobileMenuLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            tl.reverse();
+        });
     });
 });
