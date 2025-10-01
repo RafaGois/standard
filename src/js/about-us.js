@@ -31,7 +31,17 @@ document.addEventListener("DOMContentLoaded", function () {
   );
 
  
-    tl.from(
+    
+
+    const aboutusCardsTl = gsap.timeline({
+      paused: true,
+      scrollTrigger: {
+        trigger: ".about-us-cards",
+        start: "top 60%",
+      }
+    });
+
+    aboutusCardsTl.from(
       document.querySelectorAll(".about-us-card-icon"),
       {
         scale: 0,
@@ -41,14 +51,14 @@ document.addEventListener("DOMContentLoaded", function () {
     , "<"
     );
 
-    tl.from(document.querySelectorAll(".about-us-card-title"), {
+    aboutusCardsTl.from(document.querySelectorAll(".about-us-card-title"), {
       opacity: 0,
       y: 20,
       duration: 1,
       ease: "power2",
     }, "<");
 
-    tl.from(document.querySelectorAll(".about-us-card-description"), {
+    aboutusCardsTl.from(document.querySelectorAll(".about-us-card-description"), {
       opacity: 0,
       y: 20,
       duration: 1,
